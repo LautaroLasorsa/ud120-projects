@@ -21,8 +21,6 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 
 #########################################################
-### your code goes here ###
-
 
 #########################################################
 
@@ -33,7 +31,19 @@ But the Code provided in Quiz has an Indexing issue
 The Code Below solves that issue, So use this one
 '''
 
-# features_train = features_train[:int(len(features_train)/100)]
-# labels_train = labels_train[:int(len(labels_train)/100)]
+#features_train = features_train[:int(len(features_train)/100)]
+#labels_train = labels_train[:int(len(labels_train)/100)]
 
 #########################################################
+from sklearn import svm
+from sklearn import metrics
+
+#for lC in [10,100,1000,10000]:
+lC = 10000
+clf = svm.SVC(kernel='rbf', C=lC, gamma='auto')
+clf.fit(features_train,labels_train)
+pred = clf.predict(features_test)
+print(lC)
+print(metrics.accuracy_score(labels_test,pred) )
+print(clf.score(features_test,labels_test))
+print(sum(pred))
